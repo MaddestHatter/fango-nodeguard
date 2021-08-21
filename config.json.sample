@@ -1,15 +1,20 @@
 {
   "node": {
     "args": [],
-    "port": 16000,
+    "port": 18180,
     "rfcTimeout": 10,
-    "bindAddr": "0.0.0.0"
+    "bindAddr": "0.0.0.0",
+    "name": "fangotango",
+    "indexes": true,
+    "feeAddr": "addfangowalletaddress",
+    "feeViewKey": "addfangowalletprivareVIEWkey",
+    "miningAddr": ""
   },
   "restart": {
     "terminateTimeout": 5,
     "errorForgetTime": 600,
     "maxCloseErrors": 3,
-    "maxBlockTime": 1800,
+    "maxBlockTime": 2880,
     "maxInitTime": 900
   },
   "api": {
@@ -17,8 +22,8 @@
   },
   "pool": {
     "notify": {
-      "url": "https://explorer.conceal.network/pool/update",
+      "url": "https://fangotango.hopto.org/nodes/pool/update",
       "interval": 30
     }
-  }
+  },
 }
