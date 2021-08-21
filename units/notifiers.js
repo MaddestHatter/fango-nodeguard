@@ -1,4 +1,5 @@
 // Copyright (c) 2019, Taegus Cromis, The Conceal Developers
+// Copyright (c) 2021, Madhatter, Fandom Gold Society
 //
 // Please see the included LICENSE file for more information.
 
@@ -62,7 +63,7 @@ function notifyViaEmail(config, msgText, msgType, nodeData) {
   const mailOptions = {
     from: oPath.get(config, 'error.notify.email.message.from', ''),
     to: oPath.get(config, 'error.notify.email.message.to', ''),
-    subject: oPath.get(config, 'error.notify.email.message.subject', 'Conceal Guardian Error'),
+    subject: oPath.get(config, 'error.notify.email.message.subject', 'Fango Node Guard Error'),
     text: bodyContentPlain, // plain text body
     html: bodyContentHTML  // html body
   };

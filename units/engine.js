@@ -1,4 +1,5 @@
 // Copyright (c) 2019, Taegus Cromis, The Conceal Developers
+// Copyright (c) 2021, Madhatter, Fandom Gold Society
 //
 // Please see the included LICENSE file for more information.
 
@@ -178,7 +179,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
       } else {
         request.get({
           url: `http://127.0.0.1:${configOpts.node.port}/getinfo`,
-          headers: { 'User-Agent': 'Conceal Node Guardian' },
+          headers: { 'User-Agent': 'Fango Node Guardian' },
           timeout: 5000,
           json: true
         }, (err, res, release) => {
@@ -275,8 +276,8 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
         // check node
         if (nodeData) {
           request.get({
-            url: 'https://api.github.com/repos/ConcealNetwork/conceal-core/releases/latest',
-            headers: { 'User-Agent': 'Conceal Node Guardian' },
+            url: 'https://api.github.com/repos/FandomGold/fango/releases/latest',
+            headers: { 'User-Agent': 'Fango Node Guard' },
             json: true
           }, (err, res, release) => {
             if (!err && release) {

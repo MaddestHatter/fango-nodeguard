@@ -1,4 +1,5 @@
 // Copyright (c) 2019, Taegus Cromis, The Conceal Developers
+// Copyright (c) 2021, Madhatter, Fandom Gold Society
 //
 // Please see the included LICENSE file for more information.
 const readLastLines = require('read-last-lines');
@@ -29,7 +30,7 @@ module.exports = {
     });
 
     app.get("/getDaemonLog", (req, res) => {
-      readLastLines.read(path.join(nodeDirectory, 'conceald.log'), 500).then((lines) => {
+      readLastLines.read(path.join(nodeDirectory, 'fangod.log'), 500).then((lines) => {
         res.send(lines);
       });
     });

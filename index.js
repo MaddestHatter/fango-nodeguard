@@ -50,8 +50,8 @@ try {
 if (cmdOptions.help) {
   const sections = [
     {
-      header: 'Conceal Node Guardian',
-      content: 'This is a guardian app for the conceal node daemon. Handles restarts, sends notifications, registers to pool...'
+      header: 'Fango Node Guardian',
+      content: 'This is a guardian app for the fango node daemon. Handles restarts, sends notifications, registers to pool...'
     },
     {
       header: 'Options',
@@ -126,7 +126,7 @@ if (cmdOptions.help) {
   const usage = commandLineUsage(sections);
   console.log(usage);
 } else if (cmdOptions.version) {
-  console.log(vsprintf('\nConceal node guardian version %s\n', [pjson.version]));
+  console.log(vsprintf('\nFango node guardian version %s\n', [pjson.version]));
 } else {
   const rootPath = process.cwd();
   const configFileName = cmdOptions.config || path.join(rootPath, "config.json");
@@ -168,10 +168,26 @@ if (cmdOptions.help) {
       }
     }
 
+    if (configOpts.node && configOpts.node.indexes) {
+      // enable blockchain explorer 
+      configOpts.node.args.push("--enable-blockchain-indexes");
+    }
+
     if (configOpts.node && configOpts.node.feeAddr) {
       // add fee address to arguments
       configOpts.node.args.push("--fee-address");
       configOpts.node.args.push(configOpts.node.feeAddr);
+    }
+
+    if (configOpts.node && configOpts.node.feeViewKey) {
+     // add fee View Key to arguments
+     configOpts.node.args.push("--view-key");
+     configOpts.node.args.push(configOpts.node.feeViewKey);
+    }
+
+    if (configOpts.node && configOpts.node.miningAddr) {
+     configOpts.node.args.push("--start-mining");
+     configOpts.node.args.push(configOpts.node.miningAddr);
     }
 
     if (cmdOptions.setup) {

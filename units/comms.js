@@ -1,5 +1,6 @@
 // Copyright (c) 2019, Taegus Cromis, The Conceal Developers
-//
+// Copyright (c) 2021, Madhatter, Fandom Gold Society
+// 
 // Please see the included LICENSE file for more information.
 
 const vsprintf = require("sprintf-js").vsprintf;
@@ -50,8 +51,8 @@ module.exports = {
           } else {
             var duration = moment.duration(moment().diff(lastTS));
 
-            if (duration.asSeconds() > (configOpts.restart.maxBlockTime || 1800)) {
-              errorCallback(vsprintf("No new block has be seen for more then %d minutes", [(configOpts.restart.maxBlockTime || 1800) / 60]));
+            if (duration.asSeconds() > (configOpts.restart.maxBlockTime || 2880)) {
+              errorCallback(vsprintf("No new block has be seen for more then %d minutes", [(configOpts.restart.maxBlockTime || 2880) / 60]));
               heightIsOK = false;
             }
           }
