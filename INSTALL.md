@@ -1,4 +1,4 @@
-# Conceal Node Guardian Installation Instructions
+# Fandom Gold Society - Fango Node Guardian Installation Instructions
 
 Please take note that you will need **administrative rights** for working with service commands. On Linux and macOS ensure that you have superuser privileges. On Windows, be sure you are using "Run as administrator" option.
 
@@ -14,9 +14,9 @@ Please take note that you will need **administrative rights** for working with s
 
 ## Getting the Executables
 
-Download the appropriate binary for your OS [here](https://github.com/ConcealNetwork/conceal-guardian/releases) and extract them to the directory of your choice.
+Download the appropriate binary for your OS [here](https://github.com/FandomGold/fango-nodeguard/releases) and extract them to the directory of your choice.
 
-If running on Linux or macOS, before running `conceald`, Boost v1.58 must be installed. In case your package manager installs different Boost version (as it is with Ubuntu 18.10 or higher), `conceald` executable will have to be built manually as described [here](https://github.com/ConcealNetwork/conceal-core#compiling-conceal-from-source). You can check installed Boost version by running `dpkg -s libboost-dev | grep 'Version'` on Linux or `brew info boost` on macOS if you installed it with Homebrew.
+If running on Linux or macOS, before running `fangod`, Boost v1.58 must be installed. In case your package manager installs different Boost version (as it is with Ubuntu 18.10 or higher), `fangod` executable will have to be built manually as described [here](https://github.com/ConcealNetwork/conceal-core#compiling-conceal-from-source). You can check installed Boost version by running `dpkg -s libboost-dev | grep 'Version'` on Linux or `brew info boost` on macOS if you installed it with Homebrew.
 
 ### Linux Dependencies
 
@@ -49,13 +49,13 @@ Each OS has the executable of a different name so be sure to use the appropriate
 
 You will be presented with few questions, answer them and you will be ready to go.
 
-![Guardian setup](https://raw.githubusercontent.com/ConcealNetwork/conceal-guardian/master/setup/guardian_setup.jpg)
 
 **Questions explanations:**
 
-> Please input the path to the "conceald" executable (if you do not know what to put in, leave it empty)
+> Please input the path to the "fangod" executable (if you do not know what to put in, leave it empty)
 
-Absolute path to `conceald` daemon executable. If left empty the Guardian will try to look in project's directory and use that one. If `conceald` is not found it will try to download the latest one.
+Absolute path to `fangod` daemon executable. If left empty the Guardian will try to look in project's directory and use that one. 
+If `fangod` is not found it will try to download the latest one.
 
 NOTE: The automatic download and install works for Windows and Ubuntu 16.04 and 18.04 only. For any other OS you need to compile your own daemon.
 
@@ -139,7 +139,7 @@ You can see help at any time by using:
 
 The Guardian supports two mode of operations:
 
-1. You don't have a daemon (`conceald`) pre-installed, the Guardian takes care of everything.
+1. You don't have a daemon (`fangod`) pre-installed, the Guardian takes care of everything.
 2. You have the daemon pre-installed and the Guardian monitors that instance.
 
 If you have a type 1 installation, you can use the build in updater for the daemon. Simply do: 
@@ -148,7 +148,7 @@ If you have a type 1 installation, you can use the build in updater for the daem
 ./guardian-linux64 --node update
 ```
 
-The Guardian will download and update the latest stable daemon (`conceald`). Or if you have a fresh install and don't have the daemon yet, the Guardian will download it and install it on the first run automatically. **Note** however, that precompiled binaries are **only available** for Windows and for Ubuntu 16.04 and 18.04 LTS. On other Linux versions, you will have to compile the daemon binaries yourself as described [here](https://github.com/ConcealNetwork/conceal-core#compiling-conceal-from-source).
+The Guardian will download and update the latest stable daemon (`fangod`). Or if you have a fresh install and don't have the daemon yet, the Guardian will download it and install it on the first run automatically. **Note** however, that precompiled binaries are **only available** for Windows and for Ubuntu 16.04 and 18.04 LTS. On other Linux versions, you will have to compile the daemon binaries yourself as described [here](https://github.com/ConcealNetwork/conceal-core#compiling-conceal-from-source).
 
 ### Guardian
 
