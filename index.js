@@ -1,4 +1,5 @@
 // Copyright (c) 2019, Taegus Cromis, The Conceal Developers
+// Copyright (c) 2021, Madhatter, Fandom Gold Society
 //
 // Please see the included LICENSE file for more information.
 
