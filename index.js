@@ -174,6 +174,12 @@ if (cmdOptions.help) {
       configOpts.node.args.push("--enable-blockchain-indexes");
     }
 
+    if (configOpts.node && configOpts.node.autosave) {
+      // enable autosave every 720 blocks 
+      configOpts.node.args.push("--enable-autosave");
+    }
+
+
     if (configOpts.node && configOpts.node.feeAddr) {
       // add fee address to arguments
       configOpts.node.args.push("--fee-address");
@@ -186,10 +192,17 @@ if (cmdOptions.help) {
      configOpts.node.args.push(configOpts.node.feeViewKey);
     }
 
-    if (configOpts.node && configOpts.node.miningAddr) {
+    if (configOpts.node && configOpts.node.miningAddr && configOpts.node.miningThreads) {
      configOpts.node.args.push("--start-mining");
      configOpts.node.args.push(configOpts.node.miningAddr);
     }
+
+    if (configOpts.node && configOpts.node.miningThreads) {
+     configOpts.node.args.push("--mining-threads");
+     configOpts.node.args.push(configOpts.node.miningThreads);
+    }
+
+
 
     if (cmdOptions.setup) {
       setup.Initialize(configFileName);
