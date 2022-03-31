@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/MaddestHatter/fango-nodeguard#readme",
   "dependencies": {
+    "axios": "^0.26.0",
     "command-line-args": "^5.2.1",
     "command-line-usage": "^5.0.5",
     "conceal-api": "^0.7.5",

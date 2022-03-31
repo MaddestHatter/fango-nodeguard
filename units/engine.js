@@ -5,12 +5,12 @@
 
 const commandLineArgs = require("command-line-args");
 const child_process = require("child_process");
-const iplocation = require("iplocation").default;
+//const iplocation = require("iplocation").default;
 const apiServer = require("./apiServer.js");
 const notifiers = require("./notifiers.js");
 const vsprintf = require("sprintf-js").vsprintf;
 const download = require("./download.js");
-const publicIp = require("public-ip");
+//const publicIp = require("public-ip");
 const readline = require("readline");
 const request = require("request");
 const moment = require("moment");
@@ -18,6 +18,7 @@ const comms = require("./comms.js");
 const pjson = require('../package.json');
 const utils = require("./utils.js");
 const execa = require('execa');
+const axios = require('axios');
 const path = require("path");
 const fs = require("fs");
 const os = require("os");
@@ -28,6 +29,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
   var startupTime = moment();
   var errorCount = 0;
   var isStoping = false;
+  var isUpdating = false; 
   var initInterval = null;
   var poolInterval = null;
   var locationData = null;
@@ -41,14 +43,37 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
 
   // get GEO data
   (async () => {
-    externalIP = await publicIp.v4();
+   // externalIP = await publicIp.v4();
 
-    iplocation(externalIP, [], (error, res) => {
-      if (!error) {
-        locationData = res;
-      }
-    });
-  })();
+   //iplocation(externalIP, [], (error, res) => {
+   //   if (!error) {
+   //     locationData = res;
+   try {
+        ipResponse = await axios.get('https://api.ipify.org');
+      	// set the external ip data from request
+        externalIP = ipResponse.data;      
+
+        // then get the geo data for the external IP
+        geoResponse = await axios.get(`https://ipapi.co/${ipResponse.data}/json/`);
+
+        locationData = {
+          country: geoResponse.data.country_name,
+          countryCode: geoResponse.data.country_code,
+          region: geoResponse.data.region,
+          regionCode: geoResponse.data.region_code,
+          city: geoResponse.data.city,
+          postal: geoResponse.data.postal,
+          ip: geoResponse.data.ip,
+          latitude: geoResponse.data.latitude,
+          longitude: geoResponse.data.longitude,
+          timezone: geoResponse.data.timezone
+       }
+   } catch(err) {
+     locationData = null;
+     console.log(err);
+   }
+    //});
+   })();
 
   this.stop = function (doAutoRestart) {
     logMessage("Stopping the daemon process", "info", false);
