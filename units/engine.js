@@ -43,12 +43,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
 
   // get GEO data
   (async () => {
-   // externalIP = await publicIp.v4();
-
-   //iplocation(externalIP, [], (error, res) => {
-   //   if (!error) {
-   //     locationData = res;
-   try {
+    try {
         ipResponse = await axios.get('https://api.ipify.org');
       	// set the external ip data from request
         externalIP = ipResponse.data;      
@@ -68,12 +63,12 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
           longitude: geoResponse.data.longitude,
           timezone: geoResponse.data.timezone
        }
-   } catch(err) {
-     locationData = null;
-     console.log(err);
-   }
-    //});
-   })();
+    } 
+    catch(err) {
+               locationData = null;
+               console.log(err);
+    }
+  })();
 
   this.stop = function (doAutoRestart) {
     logMessage("Stopping the daemon process", "info", false);
@@ -110,6 +105,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
     restartDaemonProcess(errorData, true);
   }
 
+
   //*************************************************************//
   //        get the info about the node in full details
   //*************************************************************//
@@ -135,6 +131,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
     };
   }
 
+
   //*************************************************************//
   //       log the error to text file and send it to Discord
   //*************************************************************//
@@ -155,6 +152,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
       notifiers.notifyOnError(configOpts, msgText, msgType, getNodeInfoData());
     }
   }
+
 
   //*************************************************************//
   //     restarts the node if an error occurs automatically
@@ -192,6 +190,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
     }
   }
 
+
   //*************************************************************//
   //         periodically check if the core has initialized
   //*************************************************************//
@@ -224,6 +223,7 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
       }
     }
   }
+
 
   //*************************************************************//
   //         start the daemon process and then monitor it
