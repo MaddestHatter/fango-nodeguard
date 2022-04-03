@@ -175,6 +175,7 @@ export const NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersio
             uri: configOpts.pool.notify.url,
             strictSSL: false,
             method: "POST",
+            timeout: 10000,
             json: getNodeInfoData()
           };
 
