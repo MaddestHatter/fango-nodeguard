@@ -1,8 +1,8 @@
-# Conceal Node Guardian 
+# Fango Elder Node Guard 
 
 ## About
 
-Conceal Node Guardian is a process that monitors the `conceald` daemon. It is catching daemon errors, monitors the block count and, in case of an error, it restarts the daemon and notifies on Discord via web hook, sends an e-mail, or both.
+Fango NodeGuard is a process that monitors the `fangod` daemon. It is catching daemon errors, monitors the block count and, in case of an error, it restarts the daemon and notifies on Discord via web hook, sends an e-mail, or both.
 
 It also has an ability to connect to a pool with other nodes for the purpose of infrastructure monitoring or running a remote node with fee listing.
 
@@ -21,7 +21,7 @@ It also has an ability to connect to a pool with other nodes for the purpose of 
 
 ## Installation
 
-Conceal Node Guardian can be installed to run with Node.js or used as precompiled binary.
+Fango Node Guard can be installed to run with Node.js or used as precompiled binary.
 
 ### Node.js
 
