@@ -3,11 +3,15 @@
 // 
 // Please see the included LICENSE file for more information.
 
-const vsprintf = require("sprintf-js").vsprintf;
-const moment = require("moment");
+import {vsprintf} from "sprintf-js";
+import moment from "moment";
+
+// workaround since conceal api no EMCA compatible
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const CCX = require("conceal-api");
 
-module.exports = {
+export const comms = {
   RpcCommunicator: function (configOpts, errorCallback) {
     
     // create the CCX api interface object

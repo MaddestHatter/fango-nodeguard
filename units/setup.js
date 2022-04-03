@@ -3,11 +3,11 @@
 //
 // Please see the included LICENSE file for more information.
 
-const inquirer = require('inquirer');
-const oPath = require("object-path");
-const fs = require("fs");
+import inquirer from "inquirer";
+import objectPath from "object-path";
+import * as fs from "fs";
 
-module.exports = {
+export const setup = {
   Initialize: function (configFileName) {
     const configOpts = JSON.parse(fs.readFileSync(configFileName), "utf8");
 
@@ -16,13 +16,13 @@ module.exports = {
         type: 'input',
         name: 'nodePath',
         message: 'Please input the path to the "fangod" executable (if you do not know what to put in, leave it empty)',
-        default: oPath.get(configOpts, 'node.path', '')
+        default: objectPath.get(configOpts, 'node.path', '')
       },
       {
         type: 'input',
         name: 'nodeName',
         message: 'Please input name for your node (this will be what others see)',
-        default: oPath.get(configOpts, 'node.name', ''),
+        default: objectPath.get(configOpts, 'node.name', ''),
         validate: function (value) {
           if (value) {
             return true;
@@ -35,13 +35,13 @@ module.exports = {
         type: 'confirm',
         name: 'useFeeAddress',
         message: 'Will this be a fee based remote node?',
-        default: oPath.has(configOpts, 'node.feeAddr'),
+        default: objectPath.has(configOpts, 'node.feeAddr'),
       },
       {
         type: 'input',
         name: 'feeAddress',
         message: 'Please input the fee address for your node (earnings will be sent to that address)',
-        default: oPath.get(configOpts, 'node.feeAddr', ''),
+        default: objectPath.get(configOpts, 'node.feeAddr', ''),
         when: function (answers) {
           return answers.useFeeAddress;
         }
@@ -50,25 +50,25 @@ module.exports = {
         type: 'confirm',
         name: 'reachableOutside',
         message: 'Will your node be accessible from the outside?',
-        default: oPath.get(configOpts, 'node.bindAddr', '127.0.0.1') == '0.0.0.0' ? true : false
+        default: objectPath.get(configOpts, 'node.bindAddr', '127.0.0.1') == '0.0.0.0' ? true : false
       },
       {
         type: 'confirm',
         name: 'autoUpdate',
         message: 'Will your node have auto update enabled?',
-        default: oPath.get(configOpts, 'node.autoUpdate', false)
+        default: objectPath.get(configOpts, 'node.autoUpdate', false)
       },
       {
         type: 'confirm',
         name: 'nodeUrl',
         message: 'Will your node have a custom url? (if you do not know about it, just leave it empty)',
-        default: oPath.has(configOpts, 'url')
+        default: objectPath.has(configOpts, 'url')
       },
       {
         type: 'input',
         name: 'nodeUrlHost',
         message: 'Input the node url hostname',
-        default: oPath.get(configOpts, 'url.host', ''),
+        default: objectPath.get(configOpts, 'url.host', ''),
         when: function (answers) {
           return answers.nodeUrl;
         }
@@ -77,7 +77,7 @@ module.exports = {
         type: 'input',
         name: 'nodeUrlPort',
         message: 'Input the node url port',
-        default: oPath.get(configOpts, 'url.port', ''),
+        default: objectPath.get(configOpts, 'url.port', ''),
         when: function (answers) {
           return answers.nodeUrl;
         }
@@ -86,13 +86,13 @@ module.exports = {
         type: 'confirm',
         name: 'usePool',
         message: 'Do you want to be listed in the nodes pool?',
-        default: oPath.has(configOpts, 'pool.notify')
+        default: objectPath.has(configOpts, 'pool.notify')
       },
       {
         type: 'input',
         name: 'poolURL',
         message: 'Please input the URL of the pool (default value should be ok)',
-        default: oPath.get(configOpts, 'pool.notify.url', ''),
+        default: objectPath.get(configOpts, 'pool.notify.url', ''),
         when: function (answers) {
           return answers.usePool;
         }
@@ -101,13 +101,13 @@ module.exports = {
         type: 'confirm',
         name: 'notifyDiscord',
         message: 'Do you want to be notified on Discord in case of problems?',
-        default: oPath.has(configOpts, 'error.notify.discord')
+        default: objectPath.has(configOpts, 'error.notify.discord')
       },
       {
         type: 'input',
         name: 'discordHookURL',
         message: 'Please input the Discord hook to which error message will be sent',
-        default: oPath.get(configOpts, 'error.notify.discord.url', ''),
+        default: objectPath.get(configOpts, 'error.notify.discord.url', ''),
         when: function (answers) {
           return answers.notifyDiscord;
         }
@@ -116,13 +116,13 @@ module.exports = {
         type: 'confirm',
         name: 'notifyEmail',
         message: 'Do you want to be notified over email in case of problems?',
-        default: oPath.has(configOpts, 'error.notify.email')
+        default: objectPath.has(configOpts, 'error.notify.email')
       },
       {
         type: 'input',
         name: 'emailSMTPHost',
         message: 'Please input the SMTP server hostname',
-        default: oPath.get(configOpts, 'error.notify.email.smtp.host', ''),
+        default: objectPath.get(configOpts, 'error.notify.email.smtp.host', ''),
         when: function (answers) {
           return answers.notifyEmail;
         },
@@ -138,7 +138,7 @@ module.exports = {
         type: 'input',
         name: 'emailSMTPPort',
         message: 'Please input the SMTP server port',
-        default: oPath.get(configOpts, 'error.notify.email.smtp.port', 25),
+        default: objectPath.get(configOpts, 'error.notify.email.smtp.port', 25),
         when: function (answers) {
           return answers.notifyEmail;
         },
@@ -154,7 +154,7 @@ module.exports = {
         type: 'confirm',
         name: 'emailSMTPSecure',
         message: 'Is the SMTP connection secure?',
-        default: oPath.get(configOpts, 'error.notify.email.smtp.secure', false),
+        default: objectPath.get(configOpts, 'error.notify.email.smtp.secure', false),
         when: function (answers) {
           return answers.notifyEmail;
         }
@@ -172,7 +172,7 @@ module.exports = {
         type: 'input',
         name: 'emailAuthUsername',
         message: 'Please input the SMTP server "username"',
-        default: oPath.get(configOpts, 'error.notify.email.auth.username', ''),
+        default: objectPath.get(configOpts, 'error.notify.email.auth.username', ''),
         when: function (answers) {
           return answers.emailRequireAuth;
         },
@@ -188,7 +188,7 @@ module.exports = {
         type: 'password',
         name: 'emailAuthPassword',
         message: 'Please input the SMTP server "password"',
-        default: oPath.get(configOpts, 'error.notify.email.auth.password', ''),
+        default: objectPath.get(configOpts, 'error.notify.email.auth.password', ''),
         when: function (answers) {
           return answers.emailRequireAuth;
         },
@@ -204,7 +204,7 @@ module.exports = {
         type: 'input',
         name: 'emailMessageFrom',
         message: 'Please input the email "from" field value',
-        default: oPath.get(configOpts, 'error.notify.email.message.from', ''),
+        default: objectPath.get(configOpts, 'error.notify.email.message.from', ''),
         when: function (answers) {
           return answers.notifyEmail;
         },
@@ -220,7 +220,7 @@ module.exports = {
         type: 'input',
         name: 'emailMessageTo',
         message: 'Please input the email "to" field value',
-        default: oPath.get(configOpts, 'error.notify.email.message.to', ''),
+        default: objectPath.get(configOpts, 'error.notify.email.message.to', ''),
         when: function (answers) {
           return answers.notifyEmail;
         },
@@ -236,7 +236,7 @@ module.exports = {
         type: 'input',
         name: 'emailMessageSubject',
         message: 'Please input the email "subject" field value',
-        default: oPath.get(configOpts, 'error.notify.email.message.subject', ''),
+        default: objectPath.get(configOpts, 'error.notify.email.message.subject', ''),
         when: function (answers) {
           return answers.notifyEmail;
         }
@@ -245,39 +245,39 @@ module.exports = {
 
     inquirer.prompt(questions).then(answers => {
       // node name is mandatory
-      oPath.set(configOpts, 'node.name', answers.nodeName);
-      answers.nodePath ? oPath.set(configOpts, 'node.path', answers.nodePath) : oPath.del(configOpts, 'node.path');
-      answers.reachableOutside ? oPath.set(configOpts, 'node.bindAddr', '0.0.0.0') : oPath.set(configOpts, 'node.bindAddr', '127.0.0.1');
-      answers.autoUpdate ? oPath.set(configOpts, 'node.autoUpdate', true) : oPath.del(configOpts, 'node.autoUpdate');
+      objectPath.set(configOpts, 'node.name', answers.nodeName);
+      answers.nodePath ? objectPath.set(configOpts, 'node.path', answers.nodePath) : objectPath.del(configOpts, 'node.path');
+      answers.reachableOutside ? objectPath.set(configOpts, 'node.bindAddr', '0.0.0.0') : objectPath.set(configOpts, 'node.bindAddr', '127.0.0.1');
+      answers.autoUpdate ? objectPath.set(configOpts, 'node.autoUpdate', true) : objectPath.del(configOpts, 'node.autoUpdate');
 
-      answers.useFeeAddress ? oPath.set(configOpts, 'node.feeAddr', answers.feeAddress) : oPath.del(configOpts, 'node.feeAddr');
-      answers.usePool ? oPath.set(configOpts, 'pool.notify.url', answers.poolURL) : oPath.del(configOpts, 'pool.notify');
-      answers.notifyDiscord ? oPath.set(configOpts, 'error.notify.discord.url', answers.discordHookURL) : oPath.del(configOpts, 'error.notify.discord');
+      answers.useFeeAddress ? objectPath.set(configOpts, 'node.feeAddr', answers.feeAddress) : objectPath.del(configOpts, 'node.feeAddr');
+      answers.usePool ? objectPath.set(configOpts, 'pool.notify.url', answers.poolURL) : objectPath.del(configOpts, 'pool.notify');
+      answers.notifyDiscord ? objectPath.set(configOpts, 'error.notify.discord.url', answers.discordHookURL) : objectPath.del(configOpts, 'error.notify.discord');
 
       if (answers.nodeUrl) {
-        oPath.set(configOpts, 'url.host', answers.nodeUrlHost);
-        oPath.set(configOpts, 'url.port', answers.nodeUrlPort);
+        objectPath.set(configOpts, 'url.host', answers.nodeUrlHost);
+        objectPath.set(configOpts, 'url.port', answers.nodeUrlPort);
       } else {
-        oPath.del(configOpts, 'url');
+        objectPath.del(configOpts, 'url');
       }
 
       if (answers.notifyEmail) {
-        oPath.set(configOpts, 'error.notify.email.smtp.host', answers.emailSMTPHost);
-        oPath.set(configOpts, 'error.notify.email.smtp.port', answers.emailSMTPPort);
-        oPath.set(configOpts, 'error.notify.email.smtp.secure', answers.emailSMTPSecure);
+        objectPath.set(configOpts, 'error.notify.email.smtp.host', answers.emailSMTPHost);
+        objectPath.set(configOpts, 'error.notify.email.smtp.port', answers.emailSMTPPort);
+        objectPath.set(configOpts, 'error.notify.email.smtp.secure', answers.emailSMTPSecure);
 
         if (answers.emailRequireAuth) {
-          oPath.set(configOpts, 'error.notify.email.auth.username', answers.emailAuthUsername);
-          oPath.set(configOpts, 'error.notify.email.auth.password', answers.emailAuthPassword);
+          objectPath.set(configOpts, 'error.notify.email.auth.username', answers.emailAuthUsername);
+          objectPath.set(configOpts, 'error.notify.email.auth.password', answers.emailAuthPassword);
         } else {
-          oPath.del(configOpts, 'error.notify.email.auth');
+          objectPath.del(configOpts, 'error.notify.email.auth');
         }
 
-        oPath.set(configOpts, 'error.notify.email.message.from', answers.emailMessageFrom);
-        oPath.set(configOpts, 'error.notify.email.message.to', answers.emailMessageTo);
-        oPath.set(configOpts, 'error.notify.email.message.subject', answers.emailMessageSubject);
+        objectPath.set(configOpts, 'error.notify.email.message.from', answers.emailMessageFrom);
+        objectPath.set(configOpts, 'error.notify.email.message.to', answers.emailMessageTo);
+        objectPath.set(configOpts, 'error.notify.email.message.subject', answers.emailMessageSubject);
       } else {
-        oPath.del(configOpts, 'error.notify.email');
+        objectPath.del(configOpts, 'error.notify.email');
       }
 
       fs.writeFile(configFileName, JSON.stringify(configOpts, null, 2), function (err) {

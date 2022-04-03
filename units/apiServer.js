@@ -2,19 +2,21 @@
 // Copyright (c) 2021, Madhatter, Fandom Gold Society
 //
 // Please see the included LICENSE file for more information.
-const readLastLines = require('read-last-lines');
-const express = require("express");
-const geoip = require('geoip-lite');
-const utils = require("./utils.js");
-const path = require("path");
-const fs = require("fs");
+
+import * as readLastLines from "read-last-lines";
+import express from "express";
+import geoip from "geoip-lite";
+import {utils} from "./utils.js";
+import * as path from "path";
+import * as fs from "fs";
 
 function safeResolve(relPath) {
   var safeSuffix = path.normalize(relPath).replace(/^(\.\.(\/|\\|$))+/, '');
   return path.resolve(safeSuffix);
 }
 
-module.exports = {
+export const apiServer = {
+
   createServer: function (config, nodeDirectory, onDataCallback) {
     const app = express();
 
@@ -25,7 +27,7 @@ module.exports = {
     app.get("/getInfo", (req, res) => {
       var statusResponse = onDataCallback();
       res.set('Access-Control-Allow-Origin', '*');
-      res.set('X-Powered-By', 'ConcealNodeGuard');
+      res.set('X-Powered-By', 'FangoNodeGuard');
       res.json(statusResponse);
     });
 

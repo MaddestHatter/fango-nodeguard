@@ -3,22 +3,26 @@
 //
 // Please see the included LICENSE file for more information.
 
-const UUID = require("pure-uuid");
-const shell = require("shelljs");
-const path = require("path");
-const fs = require("fs");
+import * as UUID from "pure-uuid";
+import * as shell from "shelljs";
+import * as path from "path";
+import * as fs from "fs";
 
-module.exports = {
-  ensureUserDataDir: function () {
-    var userDataDir = process.env.APPDATA || (process.platform === "darwin" ? process.env.HOME + "/Library/Application Support" : process.env.HOME + "/.local/share");
-    userDataDir = path.join(userDataDir, "ccxNodeGuard");
+export const utils = {
+  
+  // label ensureUserDataDir 
+  ensureUserDataDir: 
+    function () {
+      var userDataDir = process.env.APPDATA || (process.platform === "darwin" ? process.env.HOME + "/Library/Application Support" : process.env.HOME + "/.local/share");
+      userDataDir = path.join(userDataDir, "ccxNodeGuard");
 
-    if (!fs.existsSync(userDataDir)) {
-      shell.mkdir('-p', userDataDir);
-    }
+      if (!fs.existsSync(userDataDir)) {
+        shell.mkdir('-p', userDataDir);
+      }
 
     return userDataDir;
-  },
+    },
+
   ensureNodeUniqueId: function () {
     var nodeDataFile = path.join(this.ensureUserDataDir(), "nodedata.json");
     var nodeData = null;
@@ -34,10 +38,12 @@ module.exports = {
       return nodeData.id;
     }
   },
+
   getNodeActualPath: function (cmdOptions, configOpts, rootPath) {
     const daemonPath = cmdOptions.daemon || path.join(rootPath, this.getNodeExecutableName());
     return (configOpts.node.path || daemonPath);
   },
+
   getNodeExecutableName: function () {
     if (process.platform === "win32") {
       return 'fangod.exe';
@@ -45,6 +51,7 @@ module.exports = {
       return 'fangod';
     }
   },
+
   getGuardianExecutableName: function () {
     if (process.platform === "win32") {
       return 'guardian-win64.exe';

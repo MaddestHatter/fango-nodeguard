@@ -3,16 +3,23 @@
 //
 // Please see the included LICENSE file for more information.
 
-const nodemailer = require("nodemailer");
-const vsprintf = require("sprintf-js").vsprintf;
-const request = require("request");
-const oPath = require("object-path");
-const os = require("os");
+//const nodemailer = require("nodemailer");
+import * as nodemailer from "nodemailer";
+
+import {vsprintf} from "sprintf-js";
+import request from "request";
+
+//const oPath = require("object-path");
+import objectPath from "object-path";
+
+
+//const os = require("os");
+import * as os from "os";
 
 function notifyViaDiscord(config, msgText, msgType, nodeData) {
-  if (oPath.get(config, 'error.notify.discord.url', '')) {
+  if (objectPath.get(config, 'error.notify.discord.url', '')) {
     var hookOptions = {
-      uri: oPath.get(config, 'error.notify.discord.url', ''),
+      uri: objectPath.get(config, 'error.notify.discord.url', ''),
       method: "POST",
       json: {
         content: vsprintf("Node **%s** reported an error -> %s \n", [
@@ -31,18 +38,18 @@ function notifyViaDiscord(config, msgText, msgType, nodeData) {
 function notifyViaEmail(config, msgText, msgType, nodeData) {
   var auth = null;
 
-  if (oPath.get(config, 'error.notify.email.auth.username', '')) {
+  if (objectPath.get(config, 'error.notify.email.auth.username', '')) {
     auth = {
-      user: oPath.get(config, 'error.notify.email.auth.username', ''),
-      pass: oPath.get(config, 'error.notify.email.auth.password', '')
+      user: objectPath.get(config, 'error.notify.email.auth.username', ''),
+      pass: objectPath.get(config, 'error.notify.email.auth.password', '')
     };
   }
 
   // create transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    host: oPath.get(config, 'error.notify.email.smtp.host', ''),
-    port: oPath.get(config, 'error.notify.email.smtp.port', 25),
-    secure: oPath.get(config, 'error.notify.email.smtp.secure', false),
+    host: objectPath.get(config, 'error.notify.email.smtp.host', ''),
+    port: objectPath.get(config, 'error.notify.email.smtp.port', 25),
+    secure: objectPath.get(config, 'error.notify.email.smtp.secure', false),
     auth: auth,
     tls: {
       rejectUnauthorized: false
@@ -61,9 +68,9 @@ function notifyViaEmail(config, msgText, msgType, nodeData) {
 
   // setup email data with unicode symbols
   const mailOptions = {
-    from: oPath.get(config, 'error.notify.email.message.from', ''),
-    to: oPath.get(config, 'error.notify.email.message.to', ''),
-    subject: oPath.get(config, 'error.notify.email.message.subject', 'Fango Node Guard Error'),
+    from: objectPath.get(config, 'error.notify.email.message.from', ''),
+    to: objectPath.get(config, 'error.notify.email.message.to', ''),
+    subject: objectPath.get(config, 'error.notify.email.message.subject', 'Fango Node Guard Error'),
     text: bodyContentPlain, // plain text body
     html: bodyContentHTML  // html body
   };
@@ -74,7 +81,8 @@ function notifyViaEmail(config, msgText, msgType, nodeData) {
   });
 }
 
-module.exports = {
+export const notifiers = {
+
   notifyOnError: function (config, msgText, msgType, nodeData) {
     // check if we need to notify the Discord
     if (config.error.notify.discord) {

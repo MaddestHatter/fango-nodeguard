@@ -1,17 +1,18 @@
 // Copyright (c) 2019, Taegus Cromis, The Conceal Developers
+// Copyright (c) 2021, Madhatter, Fandom Gold Society
 //
 // Please see the included LICENSE file for more information.
 
-const downloadRelease = require('download-github-release');
-const extractZIP = require('extract-zip');
-const extractTAR = require('tar');
-const vsprintf = require("sprintf-js").vsprintf;
-const osInfo = require('linux-os-info');
-const tempDir = require('temp-dir');
-const utils = require("./utils.js");
-const shell = require("shelljs");
-const path = require("path");
-const fs = require("fs");
+import * as downloadRelease from "download-github-release";
+import * as extractZip from "extract-zip";
+import * as extractTAR from "tar";
+import {vsprintf} from "sprintf-js";
+import * as osInfo from "linux-os-info";
+import * as tempDir from "temp-dir";
+import {utils} from "./utils.js";
+import * as shell from "shelljs";
+import * as path from "path";
+import * as fs from "fs";
 
 // a message if you are on the wrong OS and there is no precompiled binaries for that OS.
 const wrongLinuxOSMsg = "Only Ubuntu 16.04 and 18.04 have precompiled binaries, on other linux systems you need to build the daemon yourself. Reffer to: https://github.com/ConcealNetwork/conceal-core";
@@ -48,7 +49,9 @@ function extractArchive(filePath, outDir, callback) {
   }
 }
 
-module.exports = {
+//module.exports = {
+export const download = {
+
   downloadLatestDaemon: function (nodePath, callback) {
     var finalTempDir = path.join(tempDir, utils.ensureNodeUniqueId());
     var linuxOSInfo = null;
@@ -99,7 +102,7 @@ module.exports = {
       }
     };
 
-    downloadRelease('ConcealNetwork', 'conceal-core', finalTempDir, filterRelease, filterAssetNode, true)
+    downloadRelease('FandomGold', 'fango', finalTempDir, filterRelease, filterAssetNode, true)
       .then(function () {
         fs.readdir(finalTempDir, function (err, items) {
           if (items.length > 0) {
@@ -158,7 +161,7 @@ module.exports = {
       }
     };
 
-    downloadRelease('ConcealNetwork', 'conceal-guardian', finalTempDir, filterRelease, filterAssetGuardian, true)
+    downloadRelease('MaddestHatter', 'fango-nodeguard', finalTempDir, filterRelease, filterAssetGuardian, true)
       .then(function () {
         fs.readdir(finalTempDir, function (err, items) {
           if (items.length > 0) {

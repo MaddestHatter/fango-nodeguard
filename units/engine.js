@@ -3,27 +3,23 @@
 //
 // Please see the included LICENSE file for more information.
 
-const commandLineArgs = require("command-line-args");
-const child_process = require("child_process");
-//const iplocation = require("iplocation").default;
-const apiServer = require("./apiServer.js");
-const notifiers = require("./notifiers.js");
-const vsprintf = require("sprintf-js").vsprintf;
-const download = require("./download.js");
-//const publicIp = require("public-ip");
-const readline = require("readline");
-const request = require("request");
-const moment = require("moment");
-const comms = require("./comms.js");
-const pjson = require('../package.json');
-const utils = require("./utils.js");
-const execa = require('execa');
-const axios = require('axios');
-const path = require("path");
-const fs = require("fs");
-const os = require("os");
+import {apiServer} from "./apiServer.js";
+import {notifiers}from "./notifiers.js";
+import {vsprintf} from "sprintf-js";
+import {download} from "./download.js";
+import request from "request";
+import moment from "moment";
+import {comms} from "./comms.js";
+import {utils} from "./utils.js";
+import {execa} from "execa";
+import axios from "axios";
+import * as path from "path";
+import * as fs from "fs";
+import * as os from "os";
 
-exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
+const {pjson} = JSON.parse(fs.readFileSync("./package.json", "utf8"));
+
+export const NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
   const nodeUniqueId = utils.ensureNodeUniqueId();
   var poolNotifyInterval = null;
   var startupTime = moment();
@@ -41,15 +37,20 @@ exports.NodeGuard = function (cmdOptions, configOpts, rootPath, guardVersion) {
   var rpcComms = null;
   var self = this;
 
-  // get GEO data
+
+  //*************************************************************//
+  //        get GEO data
+  //*************************************************************//
   (async () => {
     try {
-        ipResponse = await axios.get('https://api.ipify.org');
-      	// set the external ip data from request
+
+        let ipResponse = await axios.get('https://api.ipify.org');
+  
+    	// set the external ip data from request
         externalIP = ipResponse.data;      
 
         // then get the geo data for the external IP
-        geoResponse = await axios.get(`https://ipapi.co/${ipResponse.data}/json/`);
+        let geoResponse = await axios.get(`https://ipapi.co/${ipResponse.data}/json/`);
 
         locationData = {
           country: geoResponse.data.country_name,

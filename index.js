@@ -3,45 +3,33 @@
 //
 // Please see the included LICENSE file for more information.
 
-const commandLineUsage = require('command-line-usage');
-const commandLineArgs = require("command-line-args");
-const mainEngine = require("./units/engine.js");
-const vsprintf = require("sprintf-js").vsprintf;
-const download = require("./units/download.js");
-const service = require("./units/service.js");
-const setup = require("./units/setup.js");
-const utils = require("./units/utils.js");
-const pjson = require('./package.json');
-const path = require("path");
-const fs = require("fs");
+import commandLineUsage from "command-line-usage";
+import commandLineArgs from "command-line-args";
+import * as mainEngine from "./units/engine.js";
+import {vsprintf} from "sprintf-js"; 
+import {download} from "./units/download.js";
+import {service} from "./units/service.js";
+import {setup} from "./units/setup.js";
+import {utils} from "./units/utils.js";
+import * as path from "path";
+import * as fs from "fs";
+
+const pjson = JSON.parse(fs.readFileSync("./package.json","utf8"));
 
 try {
-  var cmdOptions = commandLineArgs([{
-    name: "config",
-    type: String
-  }, {
-    name: "daemon",
-    type: String
-  }, {
-    name: "service",
-    type: String
-  }, {
-    name: "setup",
-    type: Boolean
-  }, {
-    name: "node",
-    type: String
-  }, {
-    name: "update",
-    type: Boolean
-  }, {
-    name: "version",
-    type: Boolean
-  }, {
-    name: "help",
-    alias: "h",
-    type: Boolean
-  }]);
+  
+  var cmdOptionDef = [ 
+    { name: "config", type: String },
+    { name: "daemon", type: String }, 
+    { name: "service",type: String }, 
+    { name: "setup", type: Boolean },
+    { name: "node", type: String },
+    { name: "update", type: Boolean },
+    { name: "version", type: Boolean },
+    { name: "help", alias: "h", type: Boolean }
+  ];
+ 
+  var cmdOptions = commandLineArgs(cmdOptionDef);
 
 } catch (err) {
   console.error("\nUknown command line parameter. Use --help for instructions.");

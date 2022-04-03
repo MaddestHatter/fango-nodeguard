@@ -1,17 +1,18 @@
 // Copyright (c) 2019, Taegus Cromis, The Conceal Developers
+// Copyright (c) 2021, Madhatter, Fandom Gold Society
 //
 // Please see the included LICENSE file for more information.
 
-const xmlbuilder = require("xmlbuilder");
-const username = require('username');
-const format = require("string-template");
-const shell = require("shelljs");
-const path = require("path");
-const fs = require("fs");
-const os = require("os");
+import * as xmlbuilder from "xmlbuilder";
+import * as username from "username";
+import * as format from "string-template";
+import * as shell from "shelljs";
+import * as path from "path";
+import * as fs from "fs";
+import * as os from "os";
 
 // export functions
-module.exports = {
+export const service = {
   install: function (configOpts, configFileName) {
     try {
       if (process.platform == "win32") {
